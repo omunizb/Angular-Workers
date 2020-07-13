@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Index</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="ajax.js"></script>
+</head>
+<body>
+    <h1>Employees</h1>
+    <div><button id="btnGetEmployees" onclick="getEmployees()">Get all employees</button></div>
+    <div>
+        <h3>Get a single employee by ID:</h3>
+        <input type="text" id="employeeId" name="getEmployee">
+        <button id="btnGetEmployeeById" onclick="getEmployeeById()">Find</button>
+    </div>
+    <pre id="preOutput"></pre>
+    <div>
+        <h3>Insert a new employee:</h3>
+        <label for="id">ID: </label>
+        <input type="text" id="id" name="id">
+        <label for="name">Name: </label>
+        <input type="text" id="name" name="name">
+        <label for="surname">Surname: </label>
+        <input type="text" id="surname" name="surname">
+        <label for="job">Job: </label>
+        <input type="text" id="job" name="job">
+        <label for="salary">Salary: </label>
+        <input type="text" id="salary" name="salary">
+        <label for="methods">Do you want to add a new employee, or update an existing one?</label>
+        <select name="methods" id="methods">
+            <option value="post">POST (add)</option>
+            <option value="put">PUT (update)</option>
+        </select>
+        <button id="btnSubmitEmployee" onclick="submitEmployee()">Submit</button>
+    </div>
+    <div>
+        <h3>Remove an employee by ID:</h3>
+        <input type="text" id="deleteEmployee" name="deleteEmployee">
+        <button id="btnDeleteEmployeeById" onclick="deleteEmployee()">Remove</button>
+    </div>
+</body>
+</html>
+
+<router-outlet></router-outlet>
