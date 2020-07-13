@@ -30,6 +30,13 @@ namespace EmployeesSQLServer
             services.AddDbContext<EmployeesContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddControllers();
+
+            services.AddCors(o => o.AddPolicy("EmployeesPolicy", builder =>
+            {
+                builder.AllowAnyOrigin()
+                       .AllowAnyMethod()
+                       .AllowAnyHeader();
+            }));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -43,6 +50,8 @@ namespace EmployeesSQLServer
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors("EmployeesPolicy");
 
             app.UseAuthorization();
 

@@ -6,11 +6,13 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using EmployeesSQLServer.Models;
+using Microsoft.AspNetCore.Cors;
 
 namespace EmployeesSQLServer.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [EnableCors("EmployeesPolicy")]
     public class EmployeesController : ControllerBase
     {
         private readonly EmployeesContext _context;
