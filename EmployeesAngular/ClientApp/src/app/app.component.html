@@ -19,5 +19,22 @@
         </tbody>  
     </table>
 </div>
+<div>
+    <label>Name:
+        <input #name />
+    </label>
+    <label>Surname:
+        <input #surname />
+    </label>
+    <label>Job:
+        <input #job />
+    </label>
+    <label>Salary:
+        <input #salary />
+    </label>
+    <button (click)="add(name.value, surname.value, job.value, salary.value); name.value=surname.value=job.value=salary.value=''">
+      add
+    </button>
+</div>
 
 <router-outlet></router-outlet>
