@@ -11,8 +11,7 @@ export class AppComponent implements OnInit {
   title = 'Employees'; 
   baseUrl = 'https://localhost:44301/api/employees';
   currentEmployees: Employees[] = [];
-  newEmployee: Employees;
-  employeeUrl: string;
+  // newEmployee: Employees;
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -26,21 +25,31 @@ export class AppComponent implements OnInit {
     }, error => console.error(error));  
   }
 
+  // https://stackoverflow.com/a/7178381
+  findWithAttr(array, attr, value) {
+    for(var i = 0; i < array.length; i += 1) {
+        if(array[i][attr] === value) {
+            return i;
+        }
+    }
+    return -1;
+  }
+
   add(_name: string, _surname: string, _job: string, _salary: number) {
-    this.newEmployee = {
+    var newEmployee = {
       name: _name, 
       surname: _surname, 
       job: _job, 
       salary: +_salary
     }
 
-    this.http.post<Employees>(this.baseUrl, this.newEmployee, this.httpOptions).subscribe(newEmployee => {
+    this.http.post<Employees>(this.baseUrl, newEmployee, this.httpOptions).subscribe(newEmployee => {
       this.currentEmployees.push(newEmployee)
     });
   }
   
   update(_id: number, _name: string, _surname: string, _job: string, _salary: number) {
-    this.newEmployee = {
+    var employee = {
       id: +_id,
       name: _name, 
       surname: _surname, 
@@ -48,11 +57,30 @@ export class AppComponent implements OnInit {
       salary: +_salary
     }
 
-    this.employeeUrl = this.baseUrl + `/${_id}`;
-    this.currentEmployees[+_id - 1] = this.newEmployee;
+    const employeeUrl = `${this.baseUrl}/${_id}`;
+    var index = this.findWithAttr(this.currentEmployees, "id", +_id);
+    if (index < 0)
+    {
+      alert("No employee matches with the given index!")
+    }
+    this.currentEmployees[index] = employee;
 
-    this.http.put<Employees>(this.employeeUrl, this.newEmployee, this.httpOptions).subscribe();
-  }  
+    this.http.put<Employees>(employeeUrl, employee, this.httpOptions).subscribe();
+  }
+  
+  delete(employee: Employees | number) {
+    const id = typeof employee === 'number' ? employee : employee.id;
+    const url = `${this.baseUrl}/${id}`;
+    
+    var index = this.findWithAttr(this.currentEmployees, "id", id);
+    if (index < 0)
+    {
+      alert("No employee matches with the given index!")
+    }
+    this.currentEmployees.splice(index, 1);
+
+    this.http.delete<Employees>(url, this.httpOptions).subscribe();
+  }
 }
 
 interface Employees {  
