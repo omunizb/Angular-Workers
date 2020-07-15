@@ -19,21 +19,29 @@
         </tbody>  
     </table>
 </div>
+<div><h3>Add a new employee: </h3></div>
 <div>
-    <label>Name:
+    <label>Name: 
         <input #name />
     </label>
-    <label>Surname:
+    <label>Surname: 
         <input #surname />
     </label>
-    <label>Job:
+    <label>Job: 
         <input #job />
     </label>
-    <label>Salary:
+    <label>Salary: 
         <input #salary />
     </label>
     <button (click)="add(name.value, surname.value, job.value, salary.value); name.value=surname.value=job.value=salary.value=''">
-      add
+        add
+    </button>
+    <h4>Or you can update an existing one by including their ID: </h4>
+    <label>ID: 
+        <input #id />
+    </label>
+    <button (click)="update(id.value, name.value, surname.value, job.value, salary.value); id.value=name.value=surname.value=job.value=salary.value=''">
+        update
     </button>
 </div>
 
