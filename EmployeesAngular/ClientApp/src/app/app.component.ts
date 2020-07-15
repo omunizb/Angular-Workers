@@ -35,7 +35,23 @@ export class AppComponent implements OnInit {
     return -1;
   }
 
+  check(array) {
+    for(var i = 0; i < array.length; i += 1) {
+      if(array[i] == "") {
+          return false;
+      }
+    }
+    return true;
+  }
+
   add(_name: string, _surname: string, _job: string, _salary: number) {
+    var input = [ _name, _surname, _job, _salary ];
+    if (!this.check(input))
+    {
+      alert("You must fill all employee data fields!");
+      return;
+    }
+
     var newEmployee = {
       name: _name, 
       surname: _surname, 
@@ -49,6 +65,13 @@ export class AppComponent implements OnInit {
   }
   
   update(_id: number, _name: string, _surname: string, _job: string, _salary: number) {
+    var input = [ _id, _name, _surname, _job, _salary ];
+    if (!this.check(input))
+    {
+      alert("You must fill all employee data fields!");
+      return;
+    }
+    
     var employee = {
       id: +_id,
       name: _name, 
@@ -61,7 +84,7 @@ export class AppComponent implements OnInit {
     var index = this.findWithAttr(this.currentEmployees, "id", +_id);
     if (index < 0)
     {
-      alert("No employee matches with the given index!")
+      alert("No employee is identified by the given index!");
     }
     this.currentEmployees[index] = employee;
 
@@ -75,7 +98,7 @@ export class AppComponent implements OnInit {
     var index = this.findWithAttr(this.currentEmployees, "id", id);
     if (index < 0)
     {
-      alert("No employee matches with the given index!")
+      alert("No employee is identified by the given index!");
     }
     this.currentEmployees.splice(index, 1);
 
